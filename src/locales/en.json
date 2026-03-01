@@ -1,0 +1,81 @@
+{
+  "common": {
+    "logo": "AIxiom · MediaGuard",
+    "getStarted": "Get Started",
+    "viewDetails": "View details",
+    "backHome": "Back to home",
+    "loading": "Loading…",
+    "retry": "Retry",
+    "newAnalysis": "New analysis",
+    "languageEnglish": "English",
+    "languageRussian": "Русский",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "support": "Support"
+  },
+  "nav": {
+    "home": "Home",
+    "history": "History"
+  },
+  "hero": {
+    "title": "Detect deepfakes before they reach your customers.",
+    "subtitle": "Upload media or paste text to get an instant authenticity verdict with confidence.",
+    "helper": "All analyses run in a secure isolated environment.",
+    "cta": "Analyze now"
+  },
+  "tabs": {
+    "text": "Text",
+    "image": "Image"
+  },
+  "input": {
+    "textLabel": "Text or URL",
+    "textPlaceholder": "Paste text or URL to analyze",
+    "textHelper": "We support plain text and links to public pages.",
+    "uploadLabel": "Upload image",
+    "dropHint": "Drop an image or click to browse",
+    "accepted": "Accepted",
+    "maxSize": "Max {{size}}MB",
+    "errors": {
+      "textLength": "Please enter at least 4 characters.",
+      "textValidity": "Provide a valid URL or a longer text sample.",
+      "fileMissing": "Please select an image file.",
+      "fileSize": "File exceeds {{size}}MB.",
+      "fileType": "Unsupported file type."
+    }
+  },
+  "buttons": {
+    "analyze": "Analyze now",
+    "analyzing": "Analyzing…",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "stats": {
+    "detections": "Detections run",
+    "confidence": "Average confidence",
+    "latency": "Response time",
+    "last30d": "Last 30 days",
+    "acrossAll": "Across all analyses",
+    "p95": "P95 latency",
+    "latestResult": "Latest result"
+  },
+  "result": {
+    "pageTitle": "Detection result",
+    "pageSubtitle": "Verdict, confidence, and reasoning.",
+    "confidenceLabel": "Confidence level"
+  },
+  "history": {
+    "title": "History",
+    "subtitle": "Recent analyses and their verdicts.",
+    "empty": "No history yet. Run your first analysis to populate this list.",
+    "error": "Unable to load history",
+    "input": "Input",
+    "verdict": "Verdict",
+    "confidence": "Confidence",
+    "timestamp": "Timestamp",
+    "page": "Page {{page}} of {{total}}"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for doesn’t exist or has been moved. Return to the dashboard to continue analyzing content."
+  }
+}
