@@ -74,6 +74,27 @@
     "timestamp": "Время",
     "page": "Страница {{page}} из {{total}}"
   },
+  "auth": {
+    "loginTitle": "Войти",
+    "loginSubtitle": "С возвращением. Введите данные для входа.",
+    "loginAction": "Войти",
+    "logoutAction": "Выйти",
+    "registerTitle": "Создать аккаунт",
+    "registerSubtitle": "Присоединитесь к MediaGuard для анализа медиа.",
+    "registerAction": "Создать аккаунт",
+    "username": "Имя пользователя",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "noAccount": "Нет аккаунта?",
+    "hasAccount": "Уже есть аккаунт?",
+    "passwordMismatch": "Пароли не совпадают."
+  },
+  "mediaType": {
+    "image": "Изображение",
+    "video": "Видео",
+    "audio": "Аудио"
+  },
   "notFound": {
     "title": "Страница не найдена",
     "body": "Страница не существует или была перемещена. Вернитесь на главную, чтобы продолжить анализ."

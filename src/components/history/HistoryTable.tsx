@@ -3,7 +3,7 @@ import { formatDate, formatConfidence } from '../../utils/formatters'
 
 export type HistoryRow = {
   id: string
-  inputType: 'text' | 'image'
+  inputType: 'image' | 'video' | 'audio'
   verdict: string
   confidence: number
   createdAt: string
@@ -28,8 +28,9 @@ type HistoryTableProps = {
     page: string
     prev: string
     next: string
-    typeText: string
     typeImage: string
+    typeVideo: string
+    typeAudio: string
   }
 }
 
@@ -99,7 +100,11 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
                 onClick={() => onRowClick?.(row.id)}
               >
                 <td className="px-4 py-3 font-medium text-slate-800">
-                  {row.inputType === 'text' ? labels.typeText : labels.typeImage}
+                  {row.inputType === 'video'
+                    ? labels.typeVideo
+                    : row.inputType === 'audio'
+                    ? labels.typeAudio
+                    : labels.typeImage}
                 </td>
                 <td className="px-4 py-3 text-slate-700">{row.verdict}</td>
                 <td className="px-4 py-3 text-slate-700">{formatConfidence(row.confidence)}</td>

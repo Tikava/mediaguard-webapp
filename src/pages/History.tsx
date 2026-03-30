@@ -34,8 +34,9 @@ const HistoryPage: React.FC = () => {
             page: t('history.page', { page, total: Math.max(1, Math.ceil(total / 10)) }),
             prev: t('buttons.prev'),
             next: t('buttons.next'),
-            typeText: t('tabs.text'),
-            typeImage: t('tabs.image'),
+            typeImage: t('mediaType.image'),
+            typeVideo: t('mediaType.video'),
+            typeAudio: t('mediaType.audio'),
           }}
         />
       </div>

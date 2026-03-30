@@ -1,7 +1,5 @@
 import React from 'react'
 import HeroSection from '../components/hero/HeroSection'
-import TabSwitcher from '../components/tabs/TabSwitcher'
-import TextInputCard from '../components/inputs/TextInputCard'
 import ImageUploadCard from '../components/inputs/ImageUploadCard'
 import FloatingStatCard from '../components/results/FloatingStatCard'
 import Container from '../components/layout/Container'
@@ -9,8 +7,7 @@ import { useDetection } from '../hooks/useDetection'
 import { useTranslation } from 'react-i18next'
 
 const Home: React.FC = () => {
-  const { mode, setMode, textValue, setTextValue, file, setFile, loading, error, result, submit } =
-    useDetection()
+  const { file, setFile, loading, error, result, submit } = useDetection()
   const { t } = useTranslation()
 
   return (
@@ -23,20 +20,8 @@ const Home: React.FC = () => {
         onCta={submit}
       >
         <div className="flex flex-col items-center gap-4">
-          <TabSwitcher
-            tabs={[
-              { id: 'text', label: t('tabs.text') },
-              { id: 'image', label: t('tabs.image') },
-            ]}
-            activeId={mode}
-            onChange={(id) => setMode(id as 'text' | 'image')}
-          />
           <div className="w-full max-w-3xl">
-            {mode === 'text' ? (
-              <TextInputCard value={textValue} onChange={setTextValue} error={error ?? undefined} />
-            ) : (
-              <ImageUploadCard file={file} onFileSelect={setFile} error={error ?? undefined} />
-            )}
+            <ImageUploadCard file={file} onFileSelect={setFile} error={error ?? undefined} />
           </div>
         </div>
       </HeroSection>

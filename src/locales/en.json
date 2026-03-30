@@ -74,6 +74,27 @@
     "timestamp": "Timestamp",
     "page": "Page {{page}} of {{total}}"
   },
+  "auth": {
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Welcome back. Enter your credentials to continue.",
+    "loginAction": "Sign in",
+    "logoutAction": "Sign out",
+    "registerTitle": "Create account",
+    "registerSubtitle": "Join MediaGuard to start analyzing media.",
+    "registerAction": "Create account",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "noAccount": "Don’t have an account?",
+    "hasAccount": "Already have an account?",
+    "passwordMismatch": "Passwords do not match."
+  },
+  "mediaType": {
+    "image": "Image",
+    "video": "Video",
+    "audio": "Audio"
+  },
   "notFound": {
     "title": "Page not found",
     "body": "The page you are looking for doesn’t exist or has been moved. Return to the dashboard to continue analyzing content."
