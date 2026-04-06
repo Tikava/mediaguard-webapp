@@ -1,11 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Container from '../components/layout/Container'
-import ResultCard from '../components/results/ResultCard'
 import ConfidenceMeter from '../components/results/ConfidenceMeter'
 import { fetchResult } from '../services/detections'
 import type { DetectionResponse } from '../types/api'
+import { formatDate } from '../utils/formatters'
+import { fadeUp } from '../utils/motion'
 import { useTranslation } from 'react-i18next'
+
+type Verdict = DetectionResponse['verdict']
+
+const verdictStyles: Record<Verdict, { badge: string; border: string; icon: string }> = {
+  'Likely Authentic': {
+    badge: 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200',
+    border: 'border-l-4 border-emerald-500',
+    icon: '✓',
+  },
+  'Likely Manipulated': {
+    badge: 'bg-rose-50 text-rose-700 ring-1 ring-rose-200',
+    border: 'border-l-4 border-rose-500',
+    icon: '✗',
+  },
+  Inconclusive: {
+    badge: 'bg-amber-50 text-amber-700 ring-1 ring-amber-200',
+    border: 'border-l-4 border-amber-400',
+    icon: '?',
+  },
+}
 
 const ResultPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -23,13 +45,16 @@ const ResultPage: React.FC = () => {
       .finally(() => setLoading(false))
   }, [id])
 
+  const styles = data ? verdictStyles[data.verdict] : null
+
   return (
     <Container>
       <div className="space-y-6">
+        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-semibold text-slate-900">{t('result.pageTitle')}</h1>
-            <p className="text-slate-600">{t('result.pageSubtitle')}</p>
+            <p className="text-slate-500 text-sm mt-1">{t('result.pageSubtitle')}</p>
           </div>
           <button
             type="button"
@@ -41,24 +66,101 @@ const ResultPage: React.FC = () => {
         </div>
 
         {loading && (
-          <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100">{t('common.loading')}</div>
-        )}
-        {error && <div className="rounded-2xl bg-rose-50 p-4 text-rose-700 ring-1 ring-rose-100">{error}</div>}
-        {data && !loading && !error && (
-          <div className="grid gap-4 md:grid-cols-[2fr,1fr]">
-            <ResultCard
-              verdict={data.verdict}
-              confidence={data.confidence}
-              summary={data.summary}
-              tags={data.tags}
-              timestamp={data.createdAt}
-            />
-            <ConfidenceMeter
-              value={data.confidence}
-              tone={data.confidence > 0.7 ? 'success' : 'warning'}
-              label={t('result.confidenceLabel')}
-            />
+          <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100 text-slate-500">
+            {t('common.loading')}
           </div>
+        )}
+
+        {error && (
+          <div className="rounded-2xl bg-rose-50 p-4 text-rose-700 ring-1 ring-rose-100">{error}</div>
+        )}
+
+        {data && !loading && !error && styles && (
+          <motion.div
+            className="space-y-4"
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp()}
+          >
+            {/* Verdict banner */}
+            <div className={`rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100 ${styles.border}`}>
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <span className={`text-2xl font-bold rounded-full w-10 h-10 flex items-center justify-center ${styles.badge}`}>
+                    {styles.icon}
+                  </span>
+                  <div>
+                    <span className={`rounded-full px-3 py-1 text-sm font-semibold ${styles.badge}`}>
+                      {data.verdict}
+                    </span>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Analyzed at {formatDate(data.createdAt)}
+                    </p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-3xl font-bold text-slate-900">
+                    {Math.round(data.confidence * 100)}%
+                  </p>
+                  <p className="text-xs text-slate-500">Confidence</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Probability breakdown */}
+            <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100 space-y-4">
+              <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
+                Probability Breakdown
+              </h2>
+              <ConfidenceMeter
+                value={data.realProbability ?? 0}
+                label="Real Probability"
+                tone="success"
+              />
+              <ConfidenceMeter
+                value={data.fakeProbability ?? 0}
+                label="Fake Probability"
+                tone="danger"
+              />
+            </div>
+
+            {/* Metadata */}
+            <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100">
+              <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-4">
+                Details
+              </h2>
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-3">
+                <div>
+                  <dt className="text-slate-400">Task ID</dt>
+                  <dd className="font-mono text-xs text-slate-600 truncate">{data.id}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-400">Media Type</dt>
+                  <dd className="capitalize text-slate-700">{data.mediaType ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-400">Model</dt>
+                  <dd className="text-slate-700">{data.modelVersion ?? '—'}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-400">Real</dt>
+                  <dd className="text-emerald-600 font-semibold">
+                    {((data.realProbability ?? 0) * 100).toFixed(4)}%
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-slate-400">Fake</dt>
+                  <dd className="text-rose-600 font-semibold">
+                    {((data.fakeProbability ?? 0) * 100).toFixed(4)}%
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-slate-400">Created</dt>
+                  <dd className="text-slate-700">{formatDate(data.createdAt)}</dd>
+                </div>
+              </dl>
+            </div>
+          </motion.div>
         )}
       </div>
     </Container>

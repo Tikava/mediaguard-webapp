@@ -17,12 +17,20 @@ export function taskToDetectionResponse(task: DetectionTask): DetectionResponse 
   const confidence = result.is_fake ? result.fake_probability : 1 - result.fake_probability
   const summary = typeof result.details === 'string' ? result.details : ''
 
+  const realProbability = result.details?.real_probability ?? (1 - result.fake_probability)
+  const fakeProbability = result.details?.fake_probability ?? result.fake_probability
+
   return {
     id: task.id,
     verdict,
     confidence,
     summary,
     createdAt: task.created_at,
+    realProbability,
+    fakeProbability,
+    modelVersion: result.model_version,
+    mediaType: task.media_type,
+    fileUrl: task.file,
   }
 }
 

@@ -3,10 +3,15 @@
 export type MediaTypeEnum = 'image' | 'video' | 'audio'
 export type StatusEnum = 'pending' | 'processing' | 'done' | 'failed'
 
+export type DetectionResultDetails = {
+  real_probability: number
+  fake_probability: number
+}
+
 export type DetectionResult = {
   fake_probability: number
   is_fake: boolean
-  details: unknown | null
+  details: DetectionResultDetails | null
   model_version?: string
   created_at: string
 }
@@ -63,6 +68,12 @@ export type DetectionResponse = {
   summary: string
   createdAt: string
   tags?: string[]
+  // raw probabilities from backend
+  realProbability?: number
+  fakeProbability?: number
+  modelVersion?: string
+  mediaType?: MediaTypeEnum
+  fileUrl?: string
 }
 
 export type HistoryItem = {
