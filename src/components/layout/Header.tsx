@@ -51,12 +51,6 @@ const Header: React.FC<HeaderProps> = ({ logoText, navItems }) => {
         <div className="flex items-center gap-3">
           {isAuthenticated ? (
             <>
-              <Link
-                to="/"
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
-              >
-                {t('nav.home')}
-              </Link>
               <span className="hidden text-sm text-slate-600 md:block">{user?.username}</span>
               <button
                 type="button"

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import HeroSection from '../components/hero/HeroSection'
 import ImageUploadCard from '../components/inputs/ImageUploadCard'
 import Container from '../components/layout/Container'
 import ConfidenceMeter from '../components/results/ConfidenceMeter'
 import { useDetection } from '../hooks/useDetection'
+import { useAuth } from '../contexts/AuthContext'
 import { formatDate } from '../utils/formatters'
 import { fadeUp } from '../utils/motion'
 import { useTranslation } from 'react-i18next'
@@ -32,7 +34,17 @@ const verdictStyles: Record<Verdict, { badge: string; border: string; icon: stri
 
 const Home: React.FC = () => {
   const { file, setFile, loading, error, result, submit, reset } = useDetection()
+  const { isAuthenticated } = useAuth()
   const { t } = useTranslation()
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false)
+
+  const handleSubmit = () => {
+    if (!isAuthenticated) {
+      setShowLoginPrompt(true)
+      return
+    }
+    submit()
+  }
 
   if (result) {
     const styles = verdictStyles[result.verdict]
@@ -135,7 +147,7 @@ const Home: React.FC = () => {
         subtitle={t('hero.subtitle')}
         helperText={t('hero.helper')}
         ctaLabel={loading ? t('buttons.analyzing') : t('hero.cta')}
-        onCta={submit}
+        onCta={handleSubmit}
       >
         <div className="flex flex-col items-center gap-4">
           <div className="w-full max-w-3xl">
@@ -143,6 +155,43 @@ const Home: React.FC = () => {
           </div>
         </div>
       </HeroSection>
+
+      {showLoginPrompt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <motion.div
+            className="mx-4 w-full max-w-sm rounded-2xl bg-white p-8 shadow-xl ring-1 ring-slate-100"
+            initial="hidden"
+            animate="visible"
+            variants={fadeUp()}
+          >
+            <h2 className="text-xl font-semibold text-slate-900">Sign in to analyze</h2>
+            <p className="mt-2 text-sm text-slate-500">
+              Create a free account or sign in to start analyzing media.
+            </p>
+            <div className="mt-6 flex flex-col gap-3">
+              <Link
+                to="/login"
+                className="rounded-xl bg-primary-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-primary-700"
+              >
+                Sign in
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+              >
+                Create account
+              </Link>
+              <button
+                type="button"
+                onClick={() => setShowLoginPrompt(false)}
+                className="text-sm text-slate-400 hover:text-slate-600"
+              >
+                Cancel
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   )
 }
