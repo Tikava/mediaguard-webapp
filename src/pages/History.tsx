@@ -27,6 +27,7 @@ const HistoryPage: React.FC = () => {
           onPageChange={setPage}
           onRowClick={(id) => navigate(`/result/${id}`)}
           labels={{
+            file: t('history.file'),
             input: t('history.input'),
             verdict: t('history.verdict'),
             confidence: t('history.confidence'),

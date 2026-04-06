@@ -1,12 +1,14 @@
 {
   "common": {
-    "logo": "AIxiom · MediaGuard",
+    "logo": "MediaGuard",
+    "footerBrand": "© {{year}} AIxiom",
     "getStarted": "Get Started",
     "viewDetails": "View details",
     "backHome": "Back to home",
     "loading": "Loading…",
     "retry": "Retry",
     "newAnalysis": "New analysis",
+    "cancel": "Cancel",
     "languageEnglish": "English",
     "languageRussian": "Русский",
     "privacy": "Privacy",
@@ -61,13 +63,39 @@
   "result": {
     "pageTitle": "Detection result",
     "pageSubtitle": "Verdict, confidence, and reasoning.",
-    "confidenceLabel": "Confidence level"
+    "confidenceLabel": "Confidence level",
+    "confidence": "Confidence",
+    "analyzedAt": "Analyzed at {{date}}",
+    "probabilityBreakdown": "Probability Breakdown",
+    "realProbability": "Real Probability",
+    "fakeProbability": "Fake Probability",
+    "details": "Details",
+    "taskId": "Task ID",
+    "mediaTypeLabel": "Media Type",
+    "model": "Model",
+    "real": "Real",
+    "fake": "Fake",
+    "created": "Created",
+    "analyzeAnother": "↑ Analyze another file",
+    "fetchError": "Unable to fetch result"
+  },
+  "verdict": {
+    "likelyAuthentic": "Likely Authentic",
+    "likelyManipulated": "Likely Manipulated",
+    "inconclusive": "Inconclusive"
+  },
+  "loginPrompt": {
+    "title": "Sign in to analyze",
+    "subtitle": "Create a free account or sign in to start analyzing media.",
+    "signIn": "Sign in",
+    "createAccount": "Create account"
   },
   "history": {
     "title": "History",
     "subtitle": "Recent analyses and their verdicts.",
     "empty": "No history yet. Run your first analysis to populate this list.",
     "error": "Unable to load history",
+    "file": "File",
     "input": "Input",
     "verdict": "Verdict",
     "confidence": "Confidence",
@@ -86,7 +114,7 @@
     "email": "Email",
     "password": "Password",
     "confirmPassword": "Confirm password",
-    "noAccount": "Don’t have an account?",
+    "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
     "passwordMismatch": "Passwords do not match."
   },
@@ -97,6 +125,6 @@
   },
   "notFound": {
     "title": "Page not found",
-    "body": "The page you are looking for doesn’t exist or has been moved. Return to the dashboard to continue analyzing content."
+    "body": "The page you are looking for doesn't exist or has been moved. Return to the dashboard to continue analyzing content."
   }
 }

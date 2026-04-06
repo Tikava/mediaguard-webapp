@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { formatDate, formatConfidence } from '../../utils/formatters'
 
 export type HistoryRow = {
@@ -20,6 +21,7 @@ type HistoryTableProps = {
   onRowClick?: (id: string) => void
   onPageChange?: (page: number) => void
   labels: {
+    file: string
     input: string
     verdict: string
     confidence: string
@@ -49,6 +51,12 @@ const SkeletonRow = () => (
   </tr>
 )
 
+const verdictI18nKey: Record<string, string> = {
+  'Likely Authentic': 'verdict.likelyAuthentic',
+  'Likely Manipulated': 'verdict.likelyManipulated',
+  Inconclusive: 'verdict.inconclusive',
+}
+
 const HistoryTable: React.FC<HistoryTableProps> = ({
   rows,
   loading = false,
@@ -60,6 +68,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   onPageChange,
   labels,
 }) => {
+  const { t } = useTranslation()
   const totalPages = Math.max(1, Math.ceil(total / pageSize))
 
   return (
@@ -67,7 +76,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
       <table className="min-w-full divide-y divide-slate-100 text-sm">
         <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
           <tr>
-            <th className="px-4 py-3">File</th>
+            <th className="px-4 py-3">{labels.file}</th>
             <th className="px-4 py-3">{labels.input}</th>
             <th className="px-4 py-3">{labels.verdict}</th>
             <th className="px-4 py-3">{labels.confidence}</th>
@@ -129,7 +138,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
                 </td>
                 <td className="px-4 py-3">
                   <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${verdictBadge[row.verdict] ?? 'bg-slate-100 text-slate-600'}`}>
-                    {row.verdict}
+                    {t(verdictI18nKey[row.verdict] ?? row.verdict)}
                   </span>
                 </td>
                 <td className="px-4 py-3 text-slate-700">{formatConfidence(row.confidence)}</td>

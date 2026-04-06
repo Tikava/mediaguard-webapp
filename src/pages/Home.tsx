@@ -32,6 +32,12 @@ const verdictStyles: Record<Verdict, { badge: string; border: string; icon: stri
   },
 }
 
+const verdictKey: Record<Verdict, string> = {
+  'Likely Authentic': 'verdict.likelyAuthentic',
+  'Likely Manipulated': 'verdict.likelyManipulated',
+  Inconclusive: 'verdict.inconclusive',
+}
+
 const Home: React.FC = () => {
   const { file, setFile, loading, error, result, submit, reset } = useDetection()
   const { isAuthenticated } = useAuth()
@@ -65,10 +71,10 @@ const Home: React.FC = () => {
                 </span>
                 <div>
                   <span className={`rounded-full px-3 py-1 text-sm font-semibold ${styles.badge}`}>
-                    {result.verdict}
+                    {t(verdictKey[result.verdict])}
                   </span>
                   <p className="mt-1 text-xs text-slate-400">
-                    {formatDate(result.createdAt)}
+                    {t('result.analyzedAt', { date: formatDate(result.createdAt) })}
                   </p>
                 </div>
               </div>
@@ -76,7 +82,7 @@ const Home: React.FC = () => {
                 <p className="text-3xl font-bold text-slate-900">
                   {Math.round(result.confidence * 100)}%
                 </p>
-                <p className="text-xs text-slate-500">Confidence</p>
+                <p className="text-xs text-slate-500">{t('result.confidence')}</p>
               </div>
             </div>
           </div>
@@ -84,16 +90,16 @@ const Home: React.FC = () => {
           {/* Probability breakdown */}
           <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100 space-y-4">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              Probability Breakdown
+              {t('result.probabilityBreakdown')}
             </h2>
             <ConfidenceMeter
               value={result.realProbability ?? 0}
-              label="Real Probability"
+              label={t('result.realProbability')}
               tone="success"
             />
             <ConfidenceMeter
               value={result.fakeProbability ?? 0}
-              label="Fake Probability"
+              label={t('result.fakeProbability')}
               tone="danger"
             />
           </div>
@@ -101,25 +107,25 @@ const Home: React.FC = () => {
           {/* Details */}
           <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-4">
-              Details
+              {t('result.details')}
             </h2>
             <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-3">
               <div>
-                <dt className="text-slate-400">Media Type</dt>
-                <dd className="capitalize text-slate-700">{result.mediaType ?? '—'}</dd>
+                <dt className="text-slate-400">{t('result.mediaTypeLabel')}</dt>
+                <dd className="capitalize text-slate-700">{result.mediaType ? t(`mediaType.${result.mediaType}`) : '—'}</dd>
               </div>
               <div>
-                <dt className="text-slate-400">Model</dt>
+                <dt className="text-slate-400">{t('result.model')}</dt>
                 <dd className="text-slate-700">{result.modelVersion ?? '—'}</dd>
               </div>
               <div>
-                <dt className="text-slate-400">Real</dt>
+                <dt className="text-slate-400">{t('result.real')}</dt>
                 <dd className="font-semibold text-emerald-600">
                   {((result.realProbability ?? 0) * 100).toFixed(4)}%
                 </dd>
               </div>
               <div>
-                <dt className="text-slate-400">Fake</dt>
+                <dt className="text-slate-400">{t('result.fake')}</dt>
                 <dd className="font-semibold text-rose-600">
                   {((result.fakeProbability ?? 0) * 100).toFixed(4)}%
                 </dd>
@@ -133,7 +139,7 @@ const Home: React.FC = () => {
             onClick={reset}
             className="w-full rounded-xl border border-slate-200 bg-white py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:border-slate-300"
           >
-            ↑ Analyze another file
+            {t('result.analyzeAnother')}
           </button>
         </motion.div>
       </Container>
@@ -164,29 +170,27 @@ const Home: React.FC = () => {
             animate="visible"
             variants={fadeUp()}
           >
-            <h2 className="text-xl font-semibold text-slate-900">Sign in to analyze</h2>
-            <p className="mt-2 text-sm text-slate-500">
-              Create a free account or sign in to start analyzing media.
-            </p>
+            <h2 className="text-xl font-semibold text-slate-900">{t('loginPrompt.title')}</h2>
+            <p className="mt-2 text-sm text-slate-500">{t('loginPrompt.subtitle')}</p>
             <div className="mt-6 flex flex-col gap-3">
               <Link
                 to="/login"
                 className="rounded-xl bg-primary-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-primary-700"
               >
-                Sign in
+                {t('loginPrompt.signIn')}
               </Link>
               <Link
                 to="/register"
                 className="rounded-xl border border-slate-200 px-4 py-2.5 text-center text-sm font-medium text-slate-700 transition hover:bg-slate-50"
               >
-                Create account
+                {t('loginPrompt.createAccount')}
               </Link>
               <button
                 type="button"
                 onClick={() => setShowLoginPrompt(false)}
                 className="text-sm text-slate-400 hover:text-slate-600"
               >
-                Cancel
+                {t('common.cancel')}
               </button>
             </div>
           </motion.div>

@@ -29,6 +29,12 @@ const verdictStyles: Record<Verdict, { badge: string; border: string; icon: stri
   },
 }
 
+const verdictKey: Record<Verdict, string> = {
+  'Likely Authentic': 'verdict.likelyAuthentic',
+  'Likely Manipulated': 'verdict.likelyManipulated',
+  Inconclusive: 'verdict.inconclusive',
+}
+
 const ResultPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -41,16 +47,15 @@ const ResultPage: React.FC = () => {
     if (!id) return
     fetchResult(id)
       .then(setData)
-      .catch((err) => setError(err instanceof Error ? err.message : 'Unable to fetch result'))
+      .catch((err) => setError(err instanceof Error ? err.message : t('result.fetchError')))
       .finally(() => setLoading(false))
-  }, [id])
+  }, [id, t])
 
   const styles = data ? verdictStyles[data.verdict] : null
 
   return (
     <Container>
       <div className="space-y-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-semibold text-slate-900">{t('result.pageTitle')}</h1>
@@ -91,10 +96,10 @@ const ResultPage: React.FC = () => {
                   </span>
                   <div>
                     <span className={`rounded-full px-3 py-1 text-sm font-semibold ${styles.badge}`}>
-                      {data.verdict}
+                      {t(verdictKey[data.verdict])}
                     </span>
                     <p className="text-xs text-slate-400 mt-1">
-                      Analyzed at {formatDate(data.createdAt)}
+                      {t('result.analyzedAt', { date: formatDate(data.createdAt) })}
                     </p>
                   </div>
                 </div>
@@ -102,7 +107,7 @@ const ResultPage: React.FC = () => {
                   <p className="text-3xl font-bold text-slate-900">
                     {Math.round(data.confidence * 100)}%
                   </p>
-                  <p className="text-xs text-slate-500">Confidence</p>
+                  <p className="text-xs text-slate-500">{t('result.confidence')}</p>
                 </div>
               </div>
             </div>
@@ -110,16 +115,16 @@ const ResultPage: React.FC = () => {
             {/* Probability breakdown */}
             <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100 space-y-4">
               <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
-                Probability Breakdown
+                {t('result.probabilityBreakdown')}
               </h2>
               <ConfidenceMeter
                 value={data.realProbability ?? 0}
-                label="Real Probability"
+                label={t('result.realProbability')}
                 tone="success"
               />
               <ConfidenceMeter
                 value={data.fakeProbability ?? 0}
-                label="Fake Probability"
+                label={t('result.fakeProbability')}
                 tone="danger"
               />
             </div>
@@ -127,35 +132,35 @@ const ResultPage: React.FC = () => {
             {/* Metadata */}
             <div className="rounded-2xl bg-white p-6 shadow-card ring-1 ring-slate-100">
               <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wide mb-4">
-                Details
+                {t('result.details')}
               </h2>
               <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm sm:grid-cols-3">
                 <div>
-                  <dt className="text-slate-400">Task ID</dt>
+                  <dt className="text-slate-400">{t('result.taskId')}</dt>
                   <dd className="font-mono text-xs text-slate-600 truncate">{data.id}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-400">Media Type</dt>
-                  <dd className="capitalize text-slate-700">{data.mediaType ?? '—'}</dd>
+                  <dt className="text-slate-400">{t('result.mediaTypeLabel')}</dt>
+                  <dd className="capitalize text-slate-700">{data.mediaType ? t(`mediaType.${data.mediaType}`) : '—'}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-400">Model</dt>
+                  <dt className="text-slate-400">{t('result.model')}</dt>
                   <dd className="text-slate-700">{data.modelVersion ?? '—'}</dd>
                 </div>
                 <div>
-                  <dt className="text-slate-400">Real</dt>
+                  <dt className="text-slate-400">{t('result.real')}</dt>
                   <dd className="text-emerald-600 font-semibold">
                     {((data.realProbability ?? 0) * 100).toFixed(4)}%
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-slate-400">Fake</dt>
+                  <dt className="text-slate-400">{t('result.fake')}</dt>
                   <dd className="text-rose-600 font-semibold">
                     {((data.fakeProbability ?? 0) * 100).toFixed(4)}%
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-slate-400">Created</dt>
+                  <dt className="text-slate-400">{t('result.created')}</dt>
                   <dd className="text-slate-700">{formatDate(data.createdAt)}</dd>
                 </div>
               </dl>
