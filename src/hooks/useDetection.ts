@@ -40,6 +40,12 @@ export const useDetection = () => {
     }
   }, [file, validate, t])
 
+  const reset = useCallback(() => {
+    setFile(null)
+    setResult(null)
+    setError(null)
+  }, [])
+
   return {
     file,
     setFile,
@@ -47,5 +53,6 @@ export const useDetection = () => {
     error,
     result,
     submit,
+    reset,
   }
 }
