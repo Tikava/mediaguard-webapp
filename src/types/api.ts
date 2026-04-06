@@ -82,4 +82,5 @@ export type HistoryItem = {
   verdict: string
   confidence: number
   createdAt: string
+  fileUrl?: string
 }

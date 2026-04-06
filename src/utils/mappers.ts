@@ -42,11 +42,19 @@ export function taskToHistoryItem(task: DetectionTask): HistoryItem {
     ? 'Likely Manipulated'
     : 'Likely Authentic'
 
+  const isFake = result?.is_fake ?? false
+  const confidence = result == null
+    ? 0
+    : isFake
+    ? result.fake_probability
+    : 1 - result.fake_probability
+
   return {
     id: task.id,
     inputType: task.media_type,
     verdict,
-    confidence: result?.fake_probability ?? 0,
+    confidence,
     createdAt: task.created_at,
+    fileUrl: task.file,
   }
 }
