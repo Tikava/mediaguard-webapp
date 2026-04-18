@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Container from '../components/layout/Container'
 import HistoryTable from '../components/history/HistoryTable'
 import { useHistory } from '../hooks/useHistory'
@@ -7,6 +8,7 @@ import { useTranslation } from 'react-i18next'
 const HistoryPage: React.FC = () => {
   const { page, setPage, loading, error, rows, total } = useHistory()
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   return (
     <Container>
@@ -23,8 +25,9 @@ const HistoryPage: React.FC = () => {
           page={page}
           total={total}
           onPageChange={setPage}
-          onRowClick={(id) => console.log('open result', id)}
+          onRowClick={(id) => navigate(`/result/${id}`)}
           labels={{
+            file: t('history.file'),
             input: t('history.input'),
             verdict: t('history.verdict'),
             confidence: t('history.confidence'),
@@ -34,8 +37,9 @@ const HistoryPage: React.FC = () => {
             page: t('history.page', { page, total: Math.max(1, Math.ceil(total / 10)) }),
             prev: t('buttons.prev'),
             next: t('buttons.next'),
-            typeText: t('tabs.text'),
-            typeImage: t('tabs.image'),
+            typeImage: t('mediaType.image'),
+            typeVideo: t('mediaType.video'),
+            typeAudio: t('mediaType.audio'),
           }}
         />
       </div>

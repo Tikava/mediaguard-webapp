@@ -1,12 +1,14 @@
 {
   "common": {
-    "logo": "AIxiom · MediaGuard",
+    "logo": "MediaGuard",
+    "footerBrand": "© {{year}} AIxiom",
     "getStarted": "Начать",
     "viewDetails": "Подробнее",
     "backHome": "На главную",
     "loading": "Загрузка…",
     "retry": "Повторить",
     "newAnalysis": "Новый анализ",
+    "cancel": "Отмена",
     "languageEnglish": "English",
     "languageRussian": "Русский",
     "privacy": "Конфиденциальность",
@@ -47,7 +49,7 @@
     "analyze": "Анализировать",
     "analyzing": "Анализ…",
     "prev": "Назад",
-    "next": "Вперед"
+    "next": "Вперёд"
   },
   "stats": {
     "detections": "Проведённые анализы",
@@ -61,18 +63,65 @@
   "result": {
     "pageTitle": "Результат анализа",
     "pageSubtitle": "Вердикт, уверенность и обоснование.",
-    "confidenceLabel": "Уровень уверенности"
+    "confidenceLabel": "Уровень уверенности",
+    "confidence": "Уверенность",
+    "analyzedAt": "Проанализировано {{date}}",
+    "probabilityBreakdown": "Вероятности",
+    "realProbability": "Вероятность подлинности",
+    "fakeProbability": "Вероятность фейка",
+    "details": "Детали",
+    "taskId": "ID задачи",
+    "mediaTypeLabel": "Тип медиа",
+    "model": "Модель",
+    "real": "Подлинное",
+    "fake": "Фейк",
+    "created": "Создано",
+    "analyzeAnother": "↑ Анализировать другой файл",
+    "fetchError": "Не удалось загрузить результат"
+  },
+  "verdict": {
+    "likelyAuthentic": "Вероятно подлинное",
+    "likelyManipulated": "Вероятно подделано",
+    "inconclusive": "Неопределённо"
+  },
+  "loginPrompt": {
+    "title": "Войдите для анализа",
+    "subtitle": "Создайте бесплатный аккаунт или войдите, чтобы начать анализ медиа.",
+    "signIn": "Войти",
+    "createAccount": "Создать аккаунт"
   },
   "history": {
     "title": "История",
     "subtitle": "Недавние анализы и их вердикты.",
     "empty": "История пуста. Запустите первый анализ, чтобы увидеть результаты.",
     "error": "Не удалось загрузить историю",
+    "file": "Файл",
     "input": "Тип",
     "verdict": "Вердикт",
     "confidence": "Уверенность",
     "timestamp": "Время",
     "page": "Страница {{page}} из {{total}}"
+  },
+  "auth": {
+    "loginTitle": "Войти",
+    "loginSubtitle": "С возвращением. Введите данные для входа.",
+    "loginAction": "Войти",
+    "logoutAction": "Выйти",
+    "registerTitle": "Создать аккаунт",
+    "registerSubtitle": "Присоединитесь к MediaGuard для анализа медиа.",
+    "registerAction": "Создать аккаунт",
+    "username": "Имя пользователя",
+    "email": "Электронная почта",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "noAccount": "Нет аккаунта?",
+    "hasAccount": "Уже есть аккаунт?",
+    "passwordMismatch": "Пароли не совпадают."
+  },
+  "mediaType": {
+    "image": "Изображение",
+    "video": "Видео",
+    "audio": "Аудио"
   },
   "notFound": {
     "title": "Страница не найдена",

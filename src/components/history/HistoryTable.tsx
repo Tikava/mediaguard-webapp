@@ -1,12 +1,14 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { formatDate, formatConfidence } from '../../utils/formatters'
 
 export type HistoryRow = {
   id: string
-  inputType: 'text' | 'image'
+  inputType: 'image' | 'video' | 'audio'
   verdict: string
   confidence: number
   createdAt: string
+  fileUrl?: string
 }
 
 type HistoryTableProps = {
@@ -19,6 +21,7 @@ type HistoryTableProps = {
   onRowClick?: (id: string) => void
   onPageChange?: (page: number) => void
   labels: {
+    file: string
     input: string
     verdict: string
     confidence: string
@@ -28,9 +31,16 @@ type HistoryTableProps = {
     page: string
     prev: string
     next: string
-    typeText: string
     typeImage: string
+    typeVideo: string
+    typeAudio: string
   }
+}
+
+const verdictBadge: Record<string, string> = {
+  'Likely Authentic': 'bg-emerald-50 text-emerald-700',
+  'Likely Manipulated': 'bg-rose-50 text-rose-700',
+  Inconclusive: 'bg-amber-50 text-amber-700',
 }
 
 const SkeletonRow = () => (
@@ -40,6 +50,12 @@ const SkeletonRow = () => (
     </td>
   </tr>
 )
+
+const verdictI18nKey: Record<string, string> = {
+  'Likely Authentic': 'verdict.likelyAuthentic',
+  'Likely Manipulated': 'verdict.likelyManipulated',
+  Inconclusive: 'verdict.inconclusive',
+}
 
 const HistoryTable: React.FC<HistoryTableProps> = ({
   rows,
@@ -52,6 +68,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   onPageChange,
   labels,
 }) => {
+  const { t } = useTranslation()
   const totalPages = Math.max(1, Math.ceil(total / pageSize))
 
   return (
@@ -59,6 +76,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
       <table className="min-w-full divide-y divide-slate-100 text-sm">
         <thead className="bg-slate-50 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">
           <tr>
+            <th className="px-4 py-3">{labels.file}</th>
             <th className="px-4 py-3">{labels.input}</th>
             <th className="px-4 py-3">{labels.verdict}</th>
             <th className="px-4 py-3">{labels.confidence}</th>
@@ -76,7 +94,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
 
           {!loading && rows.length === 0 && !error && (
             <tr>
-              <td className="px-4 py-6 text-center text-slate-500" colSpan={4}>
+              <td className="px-4 py-6 text-center text-slate-500" colSpan={5}>
                 {labels.empty}
               </td>
             </tr>
@@ -84,7 +102,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
 
           {!loading && error && (
             <tr>
-              <td className="px-4 py-6 text-center text-rose-600" colSpan={4}>
+              <td className="px-4 py-6 text-center text-rose-600" colSpan={5}>
                 {error || labels.error}
               </td>
             </tr>
@@ -98,10 +116,31 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
                 className="cursor-pointer transition hover:bg-slate-50"
                 onClick={() => onRowClick?.(row.id)}
               >
-                <td className="px-4 py-3 font-medium text-slate-800">
-                  {row.inputType === 'text' ? labels.typeText : labels.typeImage}
+                <td className="px-4 py-3">
+                  {row.fileUrl && row.inputType === 'image' ? (
+                    <img
+                      src={row.fileUrl}
+                      alt=""
+                      className="h-10 w-10 rounded-lg object-cover ring-1 ring-slate-100"
+                    />
+                  ) : (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-400 text-xs">
+                      {row.inputType === 'video' ? '▶' : row.inputType === 'audio' ? '♪' : '—'}
+                    </div>
+                  )}
                 </td>
-                <td className="px-4 py-3 text-slate-700">{row.verdict}</td>
+                <td className="px-4 py-3 font-medium text-slate-800">
+                  {row.inputType === 'video'
+                    ? labels.typeVideo
+                    : row.inputType === 'audio'
+                    ? labels.typeAudio
+                    : labels.typeImage}
+                </td>
+                <td className="px-4 py-3">
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${verdictBadge[row.verdict] ?? 'bg-slate-100 text-slate-600'}`}>
+                    {t(verdictI18nKey[row.verdict] ?? row.verdict)}
+                  </span>
+                </td>
                 <td className="px-4 py-3 text-slate-700">{formatConfidence(row.confidence)}</td>
                 <td className="px-4 py-3 text-slate-500">{formatDate(row.createdAt)}</td>
               </tr>
