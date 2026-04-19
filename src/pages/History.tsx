@@ -2,13 +2,27 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Container from '../components/layout/Container'
 import HistoryTable from '../components/history/HistoryTable'
+import DashboardStats from '../components/history/DashboardStats'
 import { useHistory } from '../hooks/useHistory'
+import { useDashboardStats } from '../hooks/useDashboardStats'
+import { useToast } from '../contexts/ToastContext'
 import { useTranslation } from 'react-i18next'
 
 const HistoryPage: React.FC = () => {
-  const { page, setPage, loading, error, rows, total } = useHistory()
+  const { page, setPage, loading, error, rows, total, deleteRow } = useHistory()
+  const { stats, loading: statsLoading } = useDashboardStats()
   const { t } = useTranslation()
+  const { addToast } = useToast()
   const navigate = useNavigate()
+
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteRow(id)
+      addToast(t('history.deleteSuccess'), 'success')
+    } catch {
+      addToast(t('history.deleteError'), 'error')
+    }
+  }
 
   return (
     <Container>
@@ -18,6 +32,18 @@ const HistoryPage: React.FC = () => {
           <p className="text-slate-600">{t('history.subtitle')}</p>
         </div>
 
+        <DashboardStats
+          stats={stats}
+          loading={statsLoading}
+          labels={{
+            total: t('stats.detections'),
+            authentic: t('verdict.likelyAuthentic'),
+            manipulated: t('verdict.likelyManipulated'),
+            avgConfidence: t('stats.confidence'),
+            ofRecent: t('stats.ofRecent'),
+          }}
+        />
+
         <HistoryTable
           rows={rows}
           loading={loading}
@@ -26,6 +52,7 @@ const HistoryPage: React.FC = () => {
           total={total}
           onPageChange={setPage}
           onRowClick={(id) => navigate(`/result/${id}`)}
+          onDelete={handleDelete}
           labels={{
             file: t('history.file'),
             input: t('history.input'),
@@ -40,6 +67,9 @@ const HistoryPage: React.FC = () => {
             typeImage: t('mediaType.image'),
             typeVideo: t('mediaType.video'),
             typeAudio: t('mediaType.audio'),
+            deleteLabel: t('history.delete'),
+            confirmDelete: t('history.confirmDelete'),
+            cancel: t('common.cancel'),
           }}
         />
       </div>

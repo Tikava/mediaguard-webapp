@@ -17,7 +17,9 @@
   },
   "nav": {
     "home": "Home",
-    "history": "History"
+    "history": "History",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "title": "Detect deepfakes before they reach your customers.",
@@ -35,6 +37,8 @@
     "textHelper": "We support plain text and links to public pages.",
     "uploadLabel": "Upload image",
     "dropHint": "Drop an image or click to browse",
+    "changeFile": "Change file",
+    "removeFile": "Remove file",
     "accepted": "Accepted",
     "maxSize": "Max {{size}}MB",
     "errors": {
@@ -58,7 +62,8 @@
     "last30d": "Last 30 days",
     "acrossAll": "Across all analyses",
     "p95": "P95 latency",
-    "latestResult": "Latest result"
+    "latestResult": "Latest result",
+    "ofRecent": "of last {{n}} analyses"
   },
   "result": {
     "pageTitle": "Detection result",
@@ -100,7 +105,9 @@
     "verdict": "Verdict",
     "confidence": "Confidence",
     "timestamp": "Timestamp",
-    "page": "Page {{page}} of {{total}}"
+    "page": "Page {{page}} of {{total}}",
+    "delete": "Delete",
+    "confirmDelete": "Sure?"
   },
   "auth": {
     "loginTitle": "Sign in",
@@ -122,6 +129,19 @@
     "image": "Image",
     "video": "Video",
     "audio": "Audio"
+  },
+  "toast": {
+    "analysisError": "Analysis failed. Please try again.",
+    "deleteSuccess": "Record deleted.",
+    "deleteError": "Failed to delete. Please try again."
+  },
+  "profile": {
+    "title": "Profile",
+    "details": "Account details",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "joined": "Member since",
+    "bio": "Bio"
   },
   "notFound": {
     "title": "Page not found",

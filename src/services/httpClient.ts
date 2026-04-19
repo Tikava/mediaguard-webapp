@@ -1,4 +1,8 @@
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'http://localhost:8000'
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? ''
+
+if (!BASE_URL && import.meta.env.DEV) {
+  console.warn('[httpClient] VITE_API_BASE_URL is not set. API requests will be relative to the dev server origin.')
+}
 
 const ACCESS_KEY = 'mg_access'
 const REFRESH_KEY = 'mg_refresh'
