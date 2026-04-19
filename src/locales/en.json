@@ -3,17 +3,13 @@
     "logo": "MediaGuard",
     "footerBrand": "© {{year}} AIxiom",
     "getStarted": "Get Started",
-    "viewDetails": "View details",
     "backHome": "Back to home",
     "loading": "Loading…",
     "retry": "Retry",
     "newAnalysis": "New analysis",
     "cancel": "Cancel",
     "languageEnglish": "English",
-    "languageRussian": "Русский",
-    "privacy": "Privacy",
-    "terms": "Terms",
-    "support": "Support"
+    "languageRussian": "Русский"
   },
   "nav": {
     "home": "Home",
@@ -27,26 +23,17 @@
     "helper": "All analyses run in a secure isolated environment.",
     "cta": "Analyze now"
   },
-  "tabs": {
-    "text": "Text",
-    "image": "Image"
-  },
   "input": {
-    "textLabel": "Text or URL",
-    "textPlaceholder": "Paste text or URL to analyze",
-    "textHelper": "We support plain text and links to public pages.",
     "uploadLabel": "Upload image",
-    "dropHint": "Drop an image or click to browse",
+    "dropHint": "Drop a file or click to browse",
     "changeFile": "Change file",
     "removeFile": "Remove file",
-    "accepted": "Accepted",
-    "maxSize": "Max {{size}}MB",
+    "acceptedMedia": "Images, Videos, Audio",
+    "maxSizeMedia": "Up to 200 MB",
     "errors": {
-      "textLength": "Please enter at least 4 characters.",
-      "textValidity": "Provide a valid URL or a longer text sample.",
-      "fileMissing": "Please select an image file.",
-      "fileSize": "File exceeds {{size}}MB.",
-      "fileType": "Unsupported file type."
+      "fileMissing": "Please select a file.",
+      "fileSize": "File exceeds {{size}} MB.",
+      "fileType": "Unsupported file type. Use image, video, or audio."
     }
   },
   "buttons": {
@@ -58,17 +45,11 @@
   "stats": {
     "detections": "Detections run",
     "confidence": "Average confidence",
-    "latency": "Response time",
-    "last30d": "Last 30 days",
-    "acrossAll": "Across all analyses",
-    "p95": "P95 latency",
-    "latestResult": "Latest result",
     "ofRecent": "of last {{n}} analyses"
   },
   "result": {
     "pageTitle": "Detection result",
     "pageSubtitle": "Verdict, confidence, and reasoning.",
-    "confidenceLabel": "Confidence level",
     "confidence": "Confidence",
     "analyzedAt": "Analyzed at {{date}}",
     "probabilityBreakdown": "Probability Breakdown",

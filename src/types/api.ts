@@ -57,7 +57,6 @@ export type Register = {
 // ─── UI types (mapped from backend) ─────────────────────────────────────────
 
 export type DetectionRequest = {
-  mode: 'image'
   file: File
 }
 

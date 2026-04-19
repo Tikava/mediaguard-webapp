@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import HeroSection from '../components/hero/HeroSection'
-import ImageUploadCard from '../components/inputs/ImageUploadCard'
+import MediaUploadCard from '../components/inputs/MediaUploadCard'
 import Container from '../components/layout/Container'
 import VerdictDisplay from '../components/results/VerdictDisplay'
 import { useDetection } from '../hooks/useDetection'
@@ -12,7 +12,7 @@ import { fadeUp } from '../utils/motion'
 import { useTranslation } from 'react-i18next'
 
 const Home: React.FC = () => {
-  const { file, setFile, loading, error, result, submit, reset } = useDetection()
+  const { file, setFile, loading, error, result, submit, reset, acceptedTypes } = useDetection()
   const { isAuthenticated } = useAuth()
   const { addToast } = useToast()
   const { t } = useTranslation()
@@ -95,7 +95,7 @@ const Home: React.FC = () => {
       >
         <div className="flex flex-col items-center gap-4">
           <div className="w-full max-w-3xl">
-            <ImageUploadCard file={file} onFileSelect={setFile} error={error ?? undefined} />
+            <MediaUploadCard file={file} onFileSelect={setFile} acceptedTypes={acceptedTypes} error={error ?? undefined} />
           </div>
         </div>
       </HeroSection>

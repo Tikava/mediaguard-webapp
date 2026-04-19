@@ -3,17 +3,13 @@
     "logo": "MediaGuard",
     "footerBrand": "© {{year}} AIxiom",
     "getStarted": "Начать",
-    "viewDetails": "Подробнее",
     "backHome": "На главную",
     "loading": "Загрузка…",
     "retry": "Повторить",
     "newAnalysis": "Новый анализ",
     "cancel": "Отмена",
     "languageEnglish": "English",
-    "languageRussian": "Русский",
-    "privacy": "Конфиденциальность",
-    "terms": "Условия",
-    "support": "Поддержка"
+    "languageRussian": "Русский"
   },
   "nav": {
     "home": "Главная",
@@ -27,26 +23,17 @@
     "helper": "Все анализы выполняются в защищённой среде.",
     "cta": "Анализировать"
   },
-  "tabs": {
-    "text": "Текст",
-    "image": "Изображение"
-  },
   "input": {
-    "textLabel": "Текст или URL",
-    "textPlaceholder": "Вставьте текст или ссылку для анализа",
-    "textHelper": "Поддерживаем текст и ссылки на публичные страницы.",
     "uploadLabel": "Загрузить изображение",
-    "dropHint": "Перетащите изображение или нажмите для выбора",
+    "dropHint": "Перетащите файл или нажмите для выбора",
     "changeFile": "Заменить файл",
     "removeFile": "Удалить файл",
-    "accepted": "Допустимо",
-    "maxSize": "Макс {{size}} МБ",
+    "acceptedMedia": "Фото, видео, аудио",
+    "maxSizeMedia": "До 200 МБ",
     "errors": {
-      "textLength": "Введите не менее 4 символов.",
-      "textValidity": "Укажите корректный URL или более длинный текст.",
-      "fileMissing": "Выберите файл изображения.",
+      "fileMissing": "Выберите файл.",
       "fileSize": "Файл превышает {{size}} МБ.",
-      "fileType": "Неподдерживаемый тип файла."
+      "fileType": "Неподдерживаемый тип файла. Используйте фото, видео или аудио."
     }
   },
   "buttons": {
@@ -58,17 +45,11 @@
   "stats": {
     "detections": "Проведённые анализы",
     "confidence": "Средняя уверенность",
-    "latency": "Время ответа",
-    "last30d": "Последние 30 дней",
-    "acrossAll": "По всем анализам",
-    "p95": "P95 задержка",
-    "latestResult": "Последний результат",
     "ofRecent": "из последних {{n}} анализов"
   },
   "result": {
     "pageTitle": "Результат анализа",
     "pageSubtitle": "Вердикт, уверенность и обоснование.",
-    "confidenceLabel": "Уровень уверенности",
     "confidence": "Уверенность",
     "analyzedAt": "Проанализировано {{date}}",
     "probabilityBreakdown": "Вероятности",

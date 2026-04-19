@@ -18,9 +18,9 @@ const HistoryPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteRow(id)
-      addToast(t('history.deleteSuccess'), 'success')
+      addToast(t('toast.deleteSuccess'), 'success')
     } catch {
-      addToast(t('history.deleteError'), 'error')
+      addToast(t('toast.deleteError'), 'error')
     }
   }
 

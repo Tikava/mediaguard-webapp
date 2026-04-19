@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import { detect } from '../services/detections'
-import type { DetectionRequest, DetectionResponse } from '../types/api'
-import { isFileTooLarge, isSupportedFileType } from '../utils/validators'
-import { MAX_IMAGE_MB } from '../constants/limits'
+import type { DetectionResponse } from '../types/api'
+import { isFileTooLarge, getMediaType } from '../utils/validators'
+import { MAX_FILE_MB, ACCEPTED_TYPES } from '../constants/limits'
 import { useTranslation } from 'react-i18next'
 
 export const useDetection = () => {
@@ -14,8 +14,10 @@ export const useDetection = () => {
 
   const validate = useCallback(() => {
     if (!file) return t('input.errors.fileMissing')
-    if (isFileTooLarge(file, MAX_IMAGE_MB)) return t('input.errors.fileSize', { size: MAX_IMAGE_MB })
-    if (!isSupportedFileType(file, 'image/png, image/jpeg')) return t('input.errors.fileType')
+    const mediaType = getMediaType(file)
+    if (!mediaType) return t('input.errors.fileType')
+    const maxMb = MAX_FILE_MB[mediaType]
+    if (isFileTooLarge(file, maxMb)) return t('input.errors.fileSize', { size: maxMb })
     return null
   }, [file, t])
 
@@ -28,8 +30,7 @@ export const useDetection = () => {
     setError(null)
     setLoading(true)
     try {
-      const payload: DetectionRequest = { mode: 'image', file: file! }
-      const response = await detect(payload)
+      const response = await detect({ file: file! })
       setResult(response)
       return response
     } catch (err) {
@@ -46,13 +47,5 @@ export const useDetection = () => {
     setError(null)
   }, [])
 
-  return {
-    file,
-    setFile,
-    loading,
-    error,
-    result,
-    submit,
-    reset,
-  }
+  return { file, setFile, loading, error, result, submit, reset, acceptedTypes: ACCEPTED_TYPES }
 }

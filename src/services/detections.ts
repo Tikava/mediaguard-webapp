@@ -9,6 +9,7 @@ export async function detect(request: DetectionRequest): Promise<DetectionRespon
   return taskToDetectionResponse(task)
 }
 
+
 export async function fetchResult(id: string): Promise<DetectionResponse> {
   const task = await httpClient.get<DetectionTask>(`/api/detection/tasks/${id}/`)
   return taskToDetectionResponse(task)
