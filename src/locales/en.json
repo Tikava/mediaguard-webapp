@@ -5,7 +5,7 @@
     "getStarted": "Get Started",
     "backHome": "Back to home",
     "loading": "Loading…",
-    "retry": "Retry",
+    "unknownError": "Something went wrong. Please try again.",
     "newAnalysis": "New analysis",
     "cancel": "Cancel",
     "languageEnglish": "English",
@@ -18,13 +18,13 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "title": "Detect deepfakes before they reach your customers.",
-    "subtitle": "Upload media or paste text to get an instant authenticity verdict with confidence.",
-    "helper": "All analyses run in a secure isolated environment.",
+    "title": "Detect deepfakes before they spread.",
+    "subtitle": "Upload an image, video, or audio file for instant deepfake detection with confidence scores.",
+    "helper": "All analyses run in a secure, isolated environment.",
     "cta": "Analyze now"
   },
   "input": {
-    "uploadLabel": "Upload image",
+    "uploadLabel": "Upload media",
     "dropHint": "Drop a file or click to browse",
     "changeFile": "Change file",
     "removeFile": "Remove file",
@@ -43,27 +43,27 @@
     "next": "Next"
   },
   "stats": {
-    "detections": "Detections run",
+    "detections": "Total analyses",
     "confidence": "Average confidence",
     "ofRecent": "of last {{n}} analyses"
   },
   "result": {
     "pageTitle": "Detection result",
-    "pageSubtitle": "Verdict, confidence, and reasoning.",
+    "pageSubtitle": "Verdict, confidence, and probability breakdown.",
     "confidence": "Confidence",
     "analyzedAt": "Analyzed at {{date}}",
     "probabilityBreakdown": "Probability Breakdown",
-    "realProbability": "Real Probability",
-    "fakeProbability": "Fake Probability",
+    "realProbability": "Real probability",
+    "fakeProbability": "Fake probability",
     "details": "Details",
     "taskId": "Task ID",
-    "mediaTypeLabel": "Media Type",
+    "mediaTypeLabel": "Media type",
     "model": "Model",
     "real": "Real",
     "fake": "Fake",
     "created": "Created",
-    "analyzeAnother": "↑ Analyze another file",
-    "fetchError": "Unable to fetch result"
+    "analyzeAnother": "Analyze another file",
+    "fetchError": "Unable to load result"
   },
   "verdict": {
     "likelyAuthentic": "Likely Authentic",
@@ -72,20 +72,20 @@
   },
   "loginPrompt": {
     "title": "Sign in to analyze",
-    "subtitle": "Create a free account or sign in to start analyzing media.",
+    "subtitle": "Create an account or sign in to start detecting deepfakes.",
     "signIn": "Sign in",
     "createAccount": "Create account"
   },
   "history": {
     "title": "History",
-    "subtitle": "Recent analyses and their verdicts.",
-    "empty": "No history yet. Run your first analysis to populate this list.",
+    "subtitle": "Your past analyses and their verdicts.",
+    "empty": "No analyses yet. Upload a file to run your first detection.",
     "error": "Unable to load history",
     "file": "File",
-    "input": "Input",
+    "input": "Type",
     "verdict": "Verdict",
     "confidence": "Confidence",
-    "timestamp": "Timestamp",
+    "timestamp": "Date",
     "page": "Page {{page}} of {{total}}",
     "delete": "Delete",
     "confirmDelete": "Sure?"
@@ -96,7 +96,7 @@
     "loginAction": "Sign in",
     "logoutAction": "Sign out",
     "registerTitle": "Create account",
-    "registerSubtitle": "Join MediaGuard to start analyzing media.",
+    "registerSubtitle": "Join MediaGuard to start detecting deepfakes.",
     "registerAction": "Create account",
     "username": "Username",
     "email": "Email",
@@ -126,6 +126,6 @@
   },
   "notFound": {
     "title": "Page not found",
-    "body": "The page you are looking for doesn't exist or has been moved. Return to the dashboard to continue analyzing content."
+    "body": "The page you're looking for doesn't exist or has been moved. Go back to the home page to continue."
   }
 }

@@ -21,7 +21,7 @@ const Login: React.FC = () => {
       await login(username, password)
       navigate('/')
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('common.retry'))
+      setError(err instanceof Error ? err.message : t('common.unknownError'))
     } finally {
       setLoading(false)
     }

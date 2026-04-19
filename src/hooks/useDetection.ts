@@ -34,7 +34,7 @@ export const useDetection = () => {
       setResult(response)
       return response
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('common.retry'))
+      setError(err instanceof Error ? err.message : t('common.unknownError'))
       throw err
     } finally {
       setLoading(false)
