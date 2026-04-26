@@ -26,6 +26,16 @@ export type DetectionTask = {
   result: DetectionResult | null
 }
 
+export type DetectionTaskStatus = {
+  id: string
+  media_type: MediaTypeEnum
+  status: StatusEnum
+  progress: string
+  is_finished: boolean | string
+  updated_at: string
+  result: DetectionResult | null
+}
+
 export type PaginatedDetectionTaskList = {
   count: number
   next: string | null

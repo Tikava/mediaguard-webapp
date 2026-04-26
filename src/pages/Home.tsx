@@ -12,7 +12,7 @@ import { fadeUp } from '../utils/motion'
 import { useTranslation } from 'react-i18next'
 
 const Home: React.FC = () => {
-  const { file, setFile, loading, error, result, submit, reset, acceptedTypes } = useDetection()
+  const { file, setFile, loading, error, result, submit, reset, acceptedTypes, pollingProgress } = useDetection()
   const { isAuthenticated } = useAuth()
   const { addToast } = useToast()
   const { t } = useTranslation()
@@ -90,7 +90,7 @@ const Home: React.FC = () => {
         title={t('hero.title')}
         subtitle={t('hero.subtitle')}
         helperText={t('hero.helper')}
-        ctaLabel={loading ? t('buttons.analyzing') : t('hero.cta')}
+        ctaLabel={loading ? (pollingProgress ?? t('buttons.analyzing')) : t('hero.cta')}
         onCta={handleSubmit}
       >
         <div className="flex flex-col items-center gap-4">
