@@ -194,6 +194,11 @@
       "uc3b2": "Model and task ID logging",
       "uc3b3": "Private, no third-party sharing"
     },
+    "examples": {
+      "label": "Live examples",
+      "title": "See it in action",
+      "subtitle": "Three media types, three verdicts. Watch our model detect manipulation patterns with pinpoint accuracy."
+    },
     "cta": {
       "title": "Start protecting yourself from deepfakes.",
       "subtitle": "Join MediaGuard today — it's free to get started.",

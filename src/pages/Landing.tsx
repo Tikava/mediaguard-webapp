@@ -75,6 +75,29 @@ const CheckIcon = () => (
   </svg>
 )
 
+const ImagePreviewIcon = () => (
+  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="1.4" strokeOpacity="0.6" />
+    <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" fillOpacity="0.5" />
+    <path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeOpacity="0.7" />
+  </svg>
+)
+
+const VideoPreviewIcon = () => (
+  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <rect x="2" y="4" width="16" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.4" strokeOpacity="0.6" />
+    <path d="M18 9l4-2v10l-4-2V9Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeOpacity="0.6" />
+    <path d="M8.5 9.5l5 3-5 3V9.5Z" fill="currentColor" fillOpacity="0.6" />
+  </svg>
+)
+
+const AudioPreviewIcon = () => (
+  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M3 12h2M7 9h2M11 6h2M15 9h2M19 12h2M7 15h2M11 18h2M15 15h2"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeOpacity="0.7" />
+  </svg>
+)
+
 const NewspaperIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path d="M19 5H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z" stroke="currentColor" strokeWidth="1.8" />
@@ -198,6 +221,119 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({ icon, iconBg, iconColor, titl
     </ul>
   </motion.div>
 )
+
+// ─── Example result card ──────────────────────────────────────────────────────
+
+const PREVIEW_CFG = {
+  image: { bg: 'from-violet-100 to-violet-50', iconColor: 'text-violet-400', Icon: ImagePreviewIcon },
+  video: { bg: 'from-sky-100 to-sky-50',       iconColor: 'text-sky-400',    Icon: VideoPreviewIcon },
+  audio: { bg: 'from-amber-100 to-amber-50',   iconColor: 'text-amber-400',  Icon: AudioPreviewIcon },
+} as const
+
+const VERDICT_RING = { fake: '#f43f5e', authentic: '#22c55e' } as const
+
+interface ExampleCardProps {
+  mediaType: keyof typeof PREVIEW_CFG
+  filename: string
+  verdict: 'fake' | 'authentic'
+  confidence: number
+  realPct: number
+  fakePct: number
+  realBarClass: string
+  fakeBarClass: string
+  verdictLabel: string
+  realLabel: string
+  fakeLabel: string
+  confidenceLabel: string
+  imageUrl?: string
+  delay?: number
+  scanDelay?: number
+}
+
+const ExampleCard: React.FC<ExampleCardProps> = ({
+  mediaType, filename, verdict, confidence, realPct, fakePct,
+  realBarClass, fakeBarClass,
+  verdictLabel, realLabel, fakeLabel, confidenceLabel,
+  imageUrl, delay = 0, scanDelay = 0,
+}) => {
+  const { bg, iconColor, Icon } = PREVIEW_CFG[mediaType]
+  const ringColor = VERDICT_RING[verdict]
+  const isFake = verdict === 'fake'
+
+  return (
+    <motion.div
+      className="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-shadow hover:shadow-md"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-40px' }}
+      variants={fadeUp(delay)}
+    >
+      {/* preview strip */}
+      <div className={`relative flex h-36 items-center justify-center overflow-hidden ${imageUrl ? '' : `bg-gradient-to-b ${bg} ${iconColor}`}`}>
+        {imageUrl ? (
+          <img src={imageUrl} alt={filename} className="h-full w-full object-cover" />
+        ) : (
+          <Icon />
+        )}
+        <motion.div
+          className="pointer-events-none absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-primary-400/70 to-transparent"
+          style={{ top: '15%' }}
+          animate={{ y: [0, 112, 0] }}
+          transition={{ repeat: Infinity, duration: 2.8, ease: 'easeInOut', delay: scanDelay }}
+        />
+        <span className={`absolute right-3 top-3 rounded-full px-2.5 py-0.5 text-[10px] font-bold text-white ${isFake ? 'bg-rose-500' : 'bg-emerald-500'}`}>
+          {verdictLabel}
+        </span>
+      </div>
+
+      {/* content */}
+      <div className="p-4">
+        <p className="mb-4 truncate text-[11px] text-slate-400">{filename}</p>
+
+        {/* ring (left) + bars (right) */}
+        <div className="flex items-center gap-4">
+          <div className="relative flex h-16 w-16 shrink-0 items-center justify-center">
+            <svg width="64" height="64" viewBox="0 0 64 64" className="-rotate-90" aria-hidden="true">
+              <circle cx="32" cy="32" r="26" fill="none" stroke="#f1f5f9" strokeWidth="6" />
+              <circle cx="32" cy="32" r="26" fill="none" stroke={ringColor} strokeWidth="6"
+                strokeLinecap="round"
+                strokeDasharray={2 * Math.PI * 26}
+                strokeDashoffset={2 * Math.PI * 26 * (1 - confidence / 100)}
+              />
+            </svg>
+            <span className="absolute text-sm font-bold text-slate-900">{confidence}%</span>
+          </div>
+
+          <div className="flex-1 space-y-3">
+            <div>
+              <div className="mb-1 flex justify-between text-[11px]">
+                <span className="text-slate-500">{realLabel}</span>
+                <span className="font-semibold text-slate-700">{realPct}%</span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
+                <div className={`h-full rounded-full bg-emerald-500 ${realBarClass}`} />
+              </div>
+            </div>
+            <div>
+              <div className="mb-1 flex justify-between text-[11px]">
+                <span className="text-slate-500">{fakeLabel}</span>
+                <span className="font-semibold text-slate-700">{fakePct}%</span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
+                <div className={`h-full rounded-full bg-rose-400 ${fakeBarClass}`} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-1.5 rounded-lg bg-slate-50 px-2.5 py-2">
+          <span className="text-[10px] text-slate-400">Model</span>
+          <span className="ml-0.5 text-[10px] font-medium text-slate-600">deepfake-detector-v2</span>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
 
 // ─── Browser mockup ────────────────────────────────────────────────────────────
 
@@ -474,8 +610,79 @@ const Landing: React.FC = () => {
         </Container>
       </section>
 
-      {/* ── Features ─────────────────────────────────────────────────────────── */}
+      {/* ── Examples ─────────────────────────────────────────────────────────── */}
       <section className="bg-slate-50 py-24">
+        <Container>
+          <motion.div
+            className="mb-16 text-center"
+            initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+            variants={fadeUp()}
+          >
+            <span className="mb-3 inline-block text-xs font-semibold uppercase tracking-widest text-primary-600">
+              {t('landing.examples.label')}
+            </span>
+            <h2 className="text-3xl font-bold text-slate-900 md:text-4xl">
+              {t('landing.examples.title')}
+            </h2>
+            <p className="mx-auto mt-4 max-w-lg text-slate-500">{t('landing.examples.subtitle')}</p>
+          </motion.div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <ExampleCard
+              mediaType="image"
+              filename="image.png"
+              verdict="fake"
+              confidence={70}
+              realPct={30}
+              fakePct={70}
+              realBarClass="w-[30%]"
+              fakeBarClass="w-[70%]"
+              verdictLabel={t('result.fake')}
+              realLabel={t('result.real')}
+              fakeLabel={t('result.fake')}
+              confidenceLabel={t('result.confidence')}
+              imageUrl="/image.png"
+              delay={0}
+              scanDelay={0}
+            />
+            <ExampleCard
+              mediaType="video"
+              filename="press_conference.mp4"
+              verdict="authentic"
+              confidence={96}
+              realPct={96}
+              fakePct={4}
+              realBarClass="w-[96%]"
+              fakeBarClass="w-[4%]"
+              verdictLabel={t('result.real')}
+              realLabel={t('result.real')}
+              fakeLabel={t('result.fake')}
+              confidenceLabel={t('result.confidence')}
+              delay={0.06}
+              scanDelay={0.9}
+            />
+            <ExampleCard
+              mediaType="audio"
+              filename="voice_memo.mp3"
+              verdict="fake"
+              confidence={88}
+              realPct={12}
+              fakePct={88}
+              realBarClass="w-[12%]"
+              fakeBarClass="w-[88%]"
+              verdictLabel={t('result.fake')}
+              realLabel={t('result.real')}
+              fakeLabel={t('result.fake')}
+              confidenceLabel={t('result.confidence')}
+              delay={0.12}
+              scanDelay={1.8}
+            />
+          </div>
+        </Container>
+      </section>
+
+      {/* ── Features ─────────────────────────────────────────────────────────── */}
+      <section className="bg-white py-24">
         <Container>
           <motion.div
             className="mb-16 text-center"
@@ -508,7 +715,7 @@ const Landing: React.FC = () => {
       </section>
 
       {/* ── Who it's for ─────────────────────────────────────────────────────── */}
-      <section className="bg-white py-24">
+      <section className="bg-slate-50 py-24">
         <Container>
           <motion.div
             className="mb-16 text-center"
