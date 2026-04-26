@@ -249,8 +249,8 @@ const ProductMockup: React.FC = () => (
             />
           </svg>
           <div className="absolute flex flex-col items-center">
-            <span className="text-xl font-bold text-slate-900">94.2%</span>
-            <span className="text-[10px] text-slate-400">confidence</span>
+            <span className="text-sm font-bold text-slate-900">94.2%</span>
+            <span className="text-[9px] text-slate-400">confidence</span>
           </div>
         </div>
       </div>
