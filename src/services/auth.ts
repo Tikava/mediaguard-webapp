@@ -4,7 +4,7 @@ import { MOCK_USER } from './mockData'
 
 const delay = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
 
-export async function login(username: string, password: string): Promise<void> {
+export async function login(_username: string, _password: string): Promise<void> {
   await delay(800)
   tokenStorage.setTokens('mock-access-token', 'mock-refresh-token')
 }
@@ -17,8 +17,8 @@ export async function logout(): Promise<void> {
 export async function register(
   username: string,
   email: string,
-  password: string,
-  password2: string,
+  _password: string,
+  _password2: string,
 ): Promise<Register> {
   await delay(1000)
   return { username, email }
