@@ -1,20 +1,16 @@
-import { httpClient, tokenStorage } from './httpClient'
-import type { TokenObtainPair, UserProfile, Register } from '../types/api'
+import { tokenStorage } from './httpClient'
+import type { UserProfile, Register } from '../types/api'
+import { MOCK_USER } from './mockData'
+
+const delay = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
 
 export async function login(username: string, password: string): Promise<void> {
-  const tokens = await httpClient.post<TokenObtainPair>('/api/auth/login/', { username, password })
-  tokenStorage.setTokens(tokens.access, tokens.refresh)
+  await delay(800)
+  tokenStorage.setTokens('mock-access-token', 'mock-refresh-token')
 }
 
 export async function logout(): Promise<void> {
-  const refresh = tokenStorage.getRefresh()
-  if (refresh) {
-    try {
-      await httpClient.post<void>('/api/auth/logout/', { refresh })
-    } catch {
-      // best-effort: clear tokens regardless
-    }
-  }
+  await delay(300)
   tokenStorage.clear()
 }
 
@@ -24,9 +20,11 @@ export async function register(
   password: string,
   password2: string,
 ): Promise<Register> {
-  return httpClient.post<Register>('/api/auth/register/', { username, email, password, password2 })
+  await delay(1000)
+  return { username, email }
 }
 
 export async function getProfile(): Promise<UserProfile> {
-  return httpClient.get<UserProfile>('/api/auth/profile/')
+  await delay(400)
+  return { ...MOCK_USER }
 }
