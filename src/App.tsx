@@ -6,6 +6,7 @@ import ToastContainer from './components/ToastContainer'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ToastProvider } from './contexts/ToastContext'
 
+const Landing = React.lazy(() => import('./pages/Landing'))
 const Home = React.lazy(() => import('./pages/Home'))
 const Result = React.lazy(() => import('./pages/Result'))
 const History = React.lazy(() => import('./pages/History'))
@@ -33,7 +34,8 @@ const AppRoutes: React.FC = () => (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/app" element={<Home />} />
       <Route
         path="/result/:id"
         element={

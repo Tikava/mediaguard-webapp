@@ -2,6 +2,7 @@ import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import en from './en.json'
 import ru from './ru.json'
+import kk from './kk.json'
 
 const STORAGE_KEY = 'lang'
 const stored = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY) : null
@@ -14,6 +15,7 @@ void i18n
     resources: {
       en: { translation: en },
       ru: { translation: ru },
+      kk: { translation: kk },
     },
     lng,
     fallbackLng,

@@ -25,13 +25,12 @@ const Header: React.FC<HeaderProps> = ({ logoText, navItems }) => {
     navItems ??
     (isAuthenticated
       ? [
-          { label: t('nav.home'), to: '/' },
+          { label: t('nav.home'), to: '/app' },
           { label: t('nav.history'), to: '/history' },
         ]
       : [])
 
 
-  const menuExpanded: 'true' | 'false' = menuOpen ? 'true' : 'false'
 
   const closeMenu = () => setMenuOpen(false)
 
@@ -108,7 +107,7 @@ const Header: React.FC<HeaderProps> = ({ logoText, navItems }) => {
         <button
           type="button"
           aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
-          aria-expanded={menuExpanded}
+          aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((v) => !v)}
           className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-700 transition hover:bg-slate-100 md:hidden"

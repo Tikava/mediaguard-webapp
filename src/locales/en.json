@@ -9,7 +9,8 @@
     "newAnalysis": "New analysis",
     "cancel": "Cancel",
     "languageEnglish": "English",
-    "languageRussian": "Русский"
+    "languageRussian": "Русский",
+    "languageKazakh": "Kazakh"
   },
   "nav": {
     "home": "Home",
@@ -127,5 +128,82 @@
   "notFound": {
     "title": "Page not found",
     "body": "The page you're looking for doesn't exist or has been moved. Go back to the home page to continue."
+  },
+  "landing": {
+    "hero": {
+      "badge": "AI-Powered Detection",
+      "title": "Detect deepfakes before they spread.",
+      "subtitle": "Upload an image, video, or audio file and get instant AI-powered deepfake detection with a confidence score.",
+      "ctaPrimary": "Create free account",
+      "ctaSecondary": "Sign in",
+      "ctaApp": "Open app",
+      "helper": "No credit card required. All analyses run in a secure, isolated environment.",
+      "chip1": "Secure",
+      "chip2": "Private",
+      "chip3": "Fast results",
+      "chip4": "All media types",
+      "formatsLabel": "Supported formats",
+      "badgeSpeed": "Analysis time",
+      "badgeSecure": "Secure",
+      "badgeSecureSub": "Isolated env"
+    },
+    "featuresLabel": "Features",
+    "how": {
+      "title": "How it works",
+      "subtitle": "Three steps to know if your media is authentic.",
+      "step1Title": "Upload your file",
+      "step1Body": "Drag and drop or browse to select an image, video, or audio clip up to 200 MB.",
+      "step2Title": "AI analyzes it",
+      "step2Body": "Our model scans the file in seconds, looking for manipulation artifacts.",
+      "step3Title": "Get your verdict",
+      "step3Body": "Receive a clear verdict — Authentic, Manipulated, or Inconclusive — with a confidence score."
+    },
+    "features": {
+      "title": "Everything you need",
+      "subtitle": "MediaGuard gives you the tools to verify any media file, fast.",
+      "f1Title": "Images, video & audio",
+      "f1Body": "Analyze all major media formats in one place — JPEG, MP4, MP3, and more.",
+      "f2Title": "AI-powered model",
+      "f2Body": "State-of-the-art deep learning detects subtle manipulation patterns invisible to the eye.",
+      "f3Title": "Confidence scores",
+      "f3Body": "Every result comes with a percentage score so you always know how certain the verdict is.",
+      "f4Title": "Secure & private",
+      "f4Body": "Files are processed in an isolated environment and never shared with third parties.",
+      "f5Title": "Analysis history",
+      "f5Body": "All your past detections are saved so you can revisit and compare results any time.",
+      "f6Title": "Fast results",
+      "f6Body": "Most files are analyzed in under 30 seconds, so you never have to wait long."
+    },
+    "usecases": {
+      "label": "Who it's for",
+      "title": "Built for those who can't afford to be wrong.",
+      "subtitle": "Whether you're breaking news or reviewing evidence, MediaGuard gives you the confidence to act.",
+      "uc1Title": "Journalists & Fact-checkers",
+      "uc1Body": "Verify the authenticity of media before publishing. Protect your reputation and your readers from synthetic misinformation.",
+      "uc1b1": "Instant verdict on images and videos",
+      "uc1b2": "Detailed confidence breakdown",
+      "uc1b3": "Full analysis history",
+      "uc2Title": "Content Moderators",
+      "uc2Body": "Identify AI-generated or manipulated content at scale. Keep your platform trustworthy for every user.",
+      "uc2b1": "Supports images, video & audio",
+      "uc2b2": "Fast results under 30 seconds",
+      "uc2b3": "Secure, isolated processing",
+      "uc3Title": "Legal & Security Teams",
+      "uc3Body": "Validate digital evidence with a verifiable confidence score. Use MediaGuard findings to support investigations.",
+      "uc3b1": "Tamper-detection analysis",
+      "uc3b2": "Model and task ID logging",
+      "uc3b3": "Private, no third-party sharing"
+    },
+    "examples": {
+      "label": "Live examples",
+      "title": "See it in action",
+      "subtitle": "Three media types, three verdicts. Watch our model detect manipulation patterns with pinpoint accuracy."
+    },
+    "cta": {
+      "title": "Start protecting yourself from deepfakes.",
+      "subtitle": "Join MediaGuard today — it's free to get started.",
+      "button": "Create free account",
+      "login": "Already have an account? Sign in"
+    }
   }
 }
