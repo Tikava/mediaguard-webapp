@@ -253,7 +253,7 @@ interface ExampleCardProps {
 const ExampleCard: React.FC<ExampleCardProps> = ({
   mediaType, filename, verdict, confidence, realPct, fakePct,
   realBarClass, fakeBarClass,
-  verdictLabel, realLabel, fakeLabel, confidenceLabel,
+  verdictLabel, realLabel, fakeLabel,
   imageUrl, delay = 0, scanDelay = 0,
 }) => {
   const { bg, iconColor, Icon } = PREVIEW_CFG[mediaType]
