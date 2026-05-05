@@ -39,10 +39,9 @@ export const useDetection = () => {
     pollingRef.current = setInterval(async () => {
       try {
         const status = await fetchTaskStatus(task.id)
-        if (status.progress) setPollingProgress(status.progress)
+        if (status.progress) setPollingProgress(`${status.progress}%`)
 
-        const finished = status.is_finished === true || status.is_finished === 'true'
-        if (!finished) return
+        if (status.status !== 'done' && status.status !== 'failed') return
 
         stopPolling()
         setPollingProgress(null)

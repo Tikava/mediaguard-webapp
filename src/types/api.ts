@@ -30,8 +30,8 @@ export type DetectionTaskStatus = {
   id: string
   media_type: MediaTypeEnum
   status: StatusEnum
-  progress: string
-  is_finished: boolean | string
+  progress: number
+  is_finished: boolean
   updated_at: string
   result: DetectionResult | null
 }
