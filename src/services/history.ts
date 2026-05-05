@@ -1,15 +1,13 @@
-import type { HistoryItem } from '../types/api'
+import type { HistoryItem, PaginatedDetectionTaskList } from '../types/api'
 import { taskToHistoryItem } from '../utils/mappers'
-import { getMockHistory } from './mockData'
-
-const delay = (ms: number) => new Promise<void>(resolve => setTimeout(resolve, ms))
+import { httpClient } from './httpClient'
 
 export async function fetchHistory(
   page = 1,
-  pageSize = 5,
+  pageSize?: number,
 ): Promise<{ items: HistoryItem[]; total: number }> {
-  await delay(600)
-  const data = getMockHistory(page, pageSize)
+  const qs = pageSize ? `page=${page}&page_size=${pageSize}` : `page=${page}`
+  const data = await httpClient.get<PaginatedDetectionTaskList>(`/api/detection/tasks/?${qs}`)
   return {
     items: data.results.map(taskToHistoryItem),
     total: data.count,
