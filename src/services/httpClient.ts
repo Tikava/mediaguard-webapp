@@ -45,6 +45,8 @@ async function refreshAccessToken(): Promise<string | null> {
   }
 }
 
+const TIMEOUT_MS = 5 * 60 * 1000
+
 async function request<T>(url: string, init: RequestInit, retry = true): Promise<T> {
   const access = tokenStorage.getAccess()
   const headers: Record<string, string> = {
@@ -52,7 +54,15 @@ async function request<T>(url: string, init: RequestInit, retry = true): Promise
   }
   if (access) headers['Authorization'] = `Bearer ${access}`
 
-  const res = await fetch(`${BASE_URL}${url}`, { ...init, headers })
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS)
+
+  let res: Response
+  try {
+    res = await fetch(`${BASE_URL}${url}`, { ...init, headers, signal: controller.signal })
+  } finally {
+    clearTimeout(timer)
+  }
 
   if (res.status === 401 && retry) {
     const newAccess = await refreshAccessToken()
