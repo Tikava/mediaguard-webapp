@@ -1,8 +1,4 @@
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? ''
-
-if (!BASE_URL && import.meta.env.DEV) {
-  console.warn('[httpClient] VITE_API_BASE_URL is not set. API requests will be relative to the dev server origin.')
-}
+const BASE_URL = 'https://dd89-2a0d-b201-108a-aa02-248a-d7e8-58ac-786c.ngrok-free.app'
 
 const ACCESS_KEY = 'mg_access'
 const REFRESH_KEY = 'mg_refresh'
