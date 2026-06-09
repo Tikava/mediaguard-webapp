@@ -1,4 +1,6 @@
-const BASE_URL = 'https://dd89-2a0d-b201-108a-aa02-248a-d7e8-58ac-786c.ngrok-free.app'
+// Requests go to a relative path on the Vercel domain (HTTPS) and are proxied
+// to the HTTP backend server-side (see vercel.json) to avoid mixed-content blocking.
+const BASE_URL = ''
 
 const ACCESS_KEY = 'mg_access'
 const REFRESH_KEY = 'mg_refresh'
